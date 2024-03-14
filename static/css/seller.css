@@ -1,0 +1,30 @@
+.productForm {
+    width: 40%;
+}
+
+.productForm input, .productForm textarea , .productForm input:focus, .productForm textarea:focus {
+    border: none;
+    outline: none !important;
+    background: transparent;
+}
+
+.productForm form div {
+    background-color: rgba(0, 123, 255, 0.06);
+}
+
+.productForm button {
+    width: 100%;
+    padding: 0.7rem 0;
+}
+
+.productForm .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+ }
+
+ .no-resize { resize: none; }
+
+.img-gallary {
+    height: 50px;
+    width: auto;
+}

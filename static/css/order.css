@@ -1,0 +1,58 @@
+.order img {
+    height: 60vh;
+    width: auto;
+}
+
+.order p {
+    text-shadow: 0 1px 0 #fff;
+    letter-spacing: 1px;
+    font-family: IBM;
+}
+
+.order input {
+    padding: 0.6rem 1.5rem;
+    width: 38%;
+    outline: none;
+    border: none;
+    box-shadow: 1px 3px 8px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 0.4rem;
+}
+
+.order button, .order button:hover {
+    background-color: #74d2e7;
+    padding: 0.6rem 1.5rem;
+    color: #fff;
+    font-weight: 550;
+    box-shadow: 1px 3px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.wishlist {
+    letter-spacing: 1px;
+}
+
+#fb {
+    fill: blue;
+    background-color: #fff;
+    padding: 3px;
+}
+#fb:hover {fill: #fff; background-color: blue;}
+#i-twitter path {
+    padding: 3px;
+    fill:#04b3ee ;
+    background-color: #fff;
+}
+#i-twitter path:hover, #i-twitter:hover {
+    fill: #fff;
+    background-color: #04b3ee;
+}
+
+.bi-google {
+    padding: 3px;
+    fill: #ea4335;
+    background-color: #fff;
+}
+
+.bi-google:hover {
+    fill: #fff;
+    background-color: #ea4335;
+}

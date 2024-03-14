@@ -1,0 +1,86 @@
+
+.home-heading img {
+    height: 86vh;
+    width: auto;
+}
+
+.home-heading h3 {
+    font-size: 2.2rem;
+    color: #333;
+    letter-spacing: 2px;
+}
+
+.home-heading button {
+    width: 27%;
+    padding: 0.5rem;
+}
+
+.delivery-info h5 {
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #4c4d4e;
+}
+
+.s-banner img {
+    width: 100%;
+}
+
+.s-banner .col-8 {padding-right: 0 !important;}
+
+.s-banner .col-4 {
+    background-color: #f7f7f7;
+    padding: 17vh 1.8vw;
+}
+.s-banner button {
+    padding: 1vh 2vw;
+}
+
+.saftey .cent {
+    padding: 17vh 0;
+}
+
+.saftey img {
+    display: grid;
+    grid-template-columns: 1em auto auto 1em;
+    grid-template-rows: 1em auto 1em;
+    width: 80%;
+}
+
+.offer .banner1 {
+    background-image: url('../../media/images/ab1.jpg');
+    /* background-image: url('/images/ab1.jpg'); */
+    height: 63vh;
+}
+
+.offer .banner1 h3 {
+    margin-top: 30vh;
+    margin-left: 6vw;
+}
+
+.offer .banner2 h3 {
+    margin-top: 30vh;
+    margin-right: 5vw;
+}
+
+.offer .banner2 {
+    background-image: url('../../media/images/ab2.jpg');
+    /* background-image: url('/images/ab2.jpg'); */
+    height: 63vh;
+    text-align: end;
+}
+
+.banner1 .btn-1 {
+    margin-left: 6vw;
+}
+.banner2 .btn-2 {
+    margin-right: 5vw;
+}
+
+.trending .col-lg-4 {
+    letter-spacing: 1px;
+}
+
+.img-gallery {
+    height: 15vw;
+    width: auto;
+}

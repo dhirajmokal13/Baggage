@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/login and signup.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Baggage Ecommerce | Sign Up</title>
+    <style>
+        .menu {
+            font-size: larger;
+        }
+
+        .collections {
+            color: black;
+            font-family: 'Hind', sans-serif;
+            text-align: center;
+        }
+    </style>
+{% endblock head %} {% block body %}
+<!-- signup -->
+<div class="container text-center my-5 signup">
+    <h4><svg xmlns="http://www.w3.org/2000/svg" fill="#555" height="2em" viewBox="0 0 512 512"><path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg></h4>
+    <form action="{% url 'Signup' %}" method="POST">
+        {% csrf_token %}
+        <div class="mt-4 p-2"><input  class="form-control" type="text" name="name" placeholder="User name" required/></div>
+        <div class="mt-4 p-2"><input  class="form-control" type="email" name="email" placeholder="User Email" required/></div>
+        <div class="mt-4 p-2"><input  class="form-control" type="number" name="mobile" placeholder="User Phone" required/></div>
+        <div class="mt-4 p-2"><input  class="form-control" type="password" name="password" placeholder="Password" required/></div>
+        <button class="d-block btn btn-danger mt-4" name="signupFrm" value="True">Submit</button>
+        <span class="text-uppercase d-block mt-4 fw-light">by clicking signup, i agree to your terms</span>
+    </form>
+</div>
+{% endblock body %}

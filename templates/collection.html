@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price %}
+{% block head %}
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Baggage Ecommerce | Collections</title>
+    <style>
+        .menu {
+            font-size: larger;
+        }
+
+        .collections {
+            color: black;
+            font-family: 'Hind', sans-serif;
+            text-align: center;
+        }
+    </style>
+{% endblock head %} {% block body %}
+<!-- collections start -->
+<div class="collections mb-5">
+    <div class="col-lg-12 mt-5 mb-4">
+        <h2>SHOP NOW</h2>
+    </div>
+    <div class="container">
+        <div class="row mt-4">
+
+            {% if product|length != 0 %}
+                {% for item in product %}
+                    <div class="col">
+                        <div class="card " style="width: 18rem;">
+                            <img src="/media/{{item.Image}}" class="card-img" style="height: 330px">
+                            <div class="card-body">
+                                <a href="{% url 'Order' product_id=item.id %}" class="card-title text-dark text-decoration-none">{{item.Name}}</a>
+                                <hr>
+                                <p class="card-text">
+                                    <span class="original-price me-2">${{item.price}}</span>
+                                    <span class="text-danger current-price">${% calculate_current_price item %}</span>
+                                </p>
+                                <div class="small-ratings">
+                                    {% autoescape off %}
+                                        {% rating_calc item.rating %}
+                                    {% endautoescape %}
+                                </div>                                                  
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="text-danger text-center">Product Not Found</h4>
+            {% endif %}
+
+
+        </div>
+    </div>
+</div>
+
+<!-- paginations -->
+{% if total_pages %}
+    <div class="container mb-5">
+        <button class="btn btn-outline-secondary me-2" {% if not page_position.previous %} disabled {% endif %}>
+            <a class="text-decoration-none text-secondary" href="{% url 'Collection' page=current_page page_position='Previous' %}">Previous</a>
+        </button>
+        <div class="btn-group" role="group" aria-label="Basic outlined example">
+            {% for num in total_pages %}
+            <button type="button" class="btn btn-outline-secondary px-3 mx-2">
+                <a class="text-decoration-none text-secondary" href="{% url 'Collection' page=current_page page_position=None %}">{{num}}</a>
+            </button>
+            {% endfor %}
+        </div>
+        <button class="btn btn-outline-secondary ms-2" {% if not page_position.next %} disabled {% endif %}>
+            <a class="text-decoration-none text-secondary" href="{% url 'Collection' page=current_page page_position='Next' %}">Next</a>
+        </button>
+    </div>
+{% endif %}
+
+
+<!-- subscription -->
+<div class="subscription py-5">
+    <p class="text-center mb-4">
+        Subscribe to the Handbags Store mailing list to receive updates on new arrivals, special offers and other
+        discount information.
+    </p>
+    <div class="text-center">
+        <input type="text" placeholder="Enter Your Email..." class="me-3">
+        <button class="btn">SUBSCRIBE</button>
+    </div>
+</div>
+{% endblock body %}

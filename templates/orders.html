@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price %}
+{% block head %}
+<meta charset="utf-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<link rel="stylesheet" href="{% static 'css/login and signup.css' %}"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Baggage Ecommerce | Customer Orders</title>
+<style>
+    .menu {
+        font-size: larger;
+    }
+
+    .collections {
+        color: black;
+        font-family: 'Hind', sans-serif;
+        text-align: center;
+    }
+</style>
+{% endblock head %} {% block body %}
+<!-- Orders section -->
+<h3 class="text-center text-uppercase mt-5 mb-3 fw-bold">{{user_type}} Orders</h3>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Delivery Address</th>
+                <th scope="col">Order Amount</th>
+                <th scope="col">Items</th>
+                <th scope="col">Payment Status</th>
+                <th scope="col">Delivery Status</th>
+                <th scope="col">Expected Delivery</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Invoice</th>
+                <th scope="col">Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in Orders %}
+                <tr>
+                    <td>{{order.address}}</td>
+                    <td>{{order.order_amount}}</td>
+                    <td>{{order.order|length}}</td>
+                    <td>{{order.payment_paid}}</td>
+                    <td>
+                        {% if user_type == "Seller" %}
+                            <label class="toggle-container ms-2" style="vertical-align: middle">
+                                <input type="checkbox" class="orderStatusToggle" {% if order.delivery_status == "Delivered" %} checked {% endif %} data-id="{{order.id}}"/>
+                                <span class="toggle-switch"></span>
+                            </label>
+                        {% endif %}
+                        {{order.delivery_status}}
+                    </td>
+                    <td>{{order.expected_delivery_date}}</td>
+                    <td>{{order.created_at}}</td>
+                    <td onclick="location.href='/customer/orders/invoice/{{order.id}}'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+                        </svg>
+                    </td>
+                    <td data-bs-toggle="modal" data-bs-target="#Modal{{order.id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z"/>
+                            <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z"/>
+                        </svg>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if user_type == "Seller" %}
+    <script>
+        const orderStatusToggleBtn = document.querySelectorAll('.orderStatusToggle')
+        orderStatusToggleBtn.forEach((data)=>{
+            data.addEventListener("change", (e)=>{
+                const statusDelivery = e.target.checked ? "True" : "False";
+                const orderId = e.target.dataset.id;
+                fetch(`/seller/orders/delivery/status/${orderId}/${statusDelivery}`)
+                .then(res => res.json())
+                .then(res => {
+                    if(res.status === 200){
+                        location.href="/seller/orders";
+                    }
+                })
+            })
+        })
+    </script>
+{% endif %}
+{% for order in Orders %}
+<div class="modal fade bd-example-modal-xl" id="Modal{{order.id}}" tabindex="-1" aria-labelledby="Modal{{order.id}}Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Modal{{order.id}}Label">Order Items</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Current Price</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in order.order %}
+                        <tr>
+                            <td><img src="/media/{{product.Image}}" class="img-gallary"></td>
+                            <td class="pt-3">{{product.Name}}</td>
+                            <td class="pt-3">${% calculate_current_price product %}</td> 
+                            <td class="pt-3 text-decoration-line-through text-danger">${{product.price}}</td>
+                            <td class="pt-3">{{product.discount}}% OFF</td>
+                            <td class="pt-3">
+                                <div class="small-ratings">
+                                    {% autoescape off %}
+                                        {% rating_calc product.rating %}
+                                    {% endautoescape %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock body %}

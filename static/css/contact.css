@@ -1,0 +1,41 @@
+.help .heading {
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.help {
+    margin: 0 8vw;
+}
+
+.contact .col {
+    border: 1px solid rgb(225, 222, 222);
+    border-radius: 0.2rem;
+}
+
+.contact input, .contact textarea , .contact input:focus, .contact textarea:focus {
+    border: none;
+    outline: none !important;
+    background: transparent;
+}
+
+.contact form div {
+    background-color: rgba(0, 123, 255, 0.06);
+}
+
+.contact button {
+    width: 100%;
+    padding: 0.7rem 0;
+}
+
+.contact .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+ }
+
+ .no-resize { resize: none; }
+
+ .contact .map iframe {
+    width: 100%;
+    height: 100%;
+ }

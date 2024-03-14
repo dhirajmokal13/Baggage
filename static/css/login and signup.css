@@ -1,0 +1,94 @@
+.signup,
+.login {
+    max-width: 25vw;
+}
+
+.signup .col,
+.login .col {
+    border: 1px solid rgb(225, 222, 222);
+    border-radius: 0.2rem;
+}
+
+.signup input,
+.signup input:focus,
+.login input,
+.login input:focus {
+    border: none;
+    outline: none !important;
+    background: transparent;
+}
+
+.signup form div,
+.login form div {
+    background-color: rgba(0, 123, 255, 0.06);
+}
+
+.signup button,
+.login button {
+    width: 100%;
+    padding: 0.7rem 0;
+}
+
+.signup .form-control:focus,
+.login .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.signup span,
+.login span {
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.login .footer .col,
+.login .footer .col-lg-4,
+.login .footer .col-lg-8 {
+    border: none;
+    background-color: #fff;
+}
+
+.login a {
+    font-size: initial;
+}
+
+
+
+.toggle-container {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .toggle-switch {
+    display: inline-block;
+    width: 37px;
+    height: 18px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    transition: background-color 0.3s;
+  }
+
+  .toggle-switch::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #555;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s;
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked + .toggle-switch {
+    background-color: #66bb6a;
+  }
+
+  input[type="checkbox"]:checked + .toggle-switch::before {
+    left: calc(100% - 17px);
+  }

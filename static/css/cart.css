@@ -1,0 +1,47 @@
+.cartList {
+    width: 80%;
+    margin: auto;
+}
+
+.img-gallary {
+    height: 50px;
+    width: auto;
+}
+
+.checkout {
+    position: sticky;
+    padding: 3vh 6vw;
+    bottom: 3vh;
+    margin: 5vh auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.checkout input,
+.checkout input:focus{
+    border: none;
+    outline: none !important;
+    background: transparent;
+    width: 25vw;
+}
+
+.input-box {
+    background-color: rgba(0, 123, 255, 0.09);
+    border-radius: 5px;
+    padding: 4px 16px;
+}
+
+.checkout .form-control:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.btn-success-glass, .btn-success-glass:hover {
+    color: #fff;
+    background-color: rgba(25, 135, 84, 0.90);
+    border-color: #198754;
+}

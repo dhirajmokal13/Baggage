@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price %}
+{% block head %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/seller.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Baggage Ecommerce | Seller Panel</title>
+<style>
+    .menu {
+        font-size: larger;
+    }
+
+    .collections {
+        color: black;
+        font-family: 'Hind', sans-serif;
+        text-align: center;
+    }
+</style>
+{% endblock head %}
+
+{% block body %}
+{% comment %} form conatiner {% endcomment %}
+<div class="container productForm my-5">
+    <h4 class="text-center mb-3">Add Product</h4>
+    <form action="{% url 'Seller' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mt-2 p-2"><input class="form-control" type="text" name="name" placeholder="Product Name" required />
+        </div>
+        <div class="mt-2 p-2"><input class="form-control" type="text" name="price" placeholder="Product Price"
+                required /></div>
+        <div class="mt-2 p-2"><input class="form-control" type="text" name="discount" placeholder="Discount Percentage"
+                required /></div>
+        <div class="mt-2 p-2"><input class="form-control" type="file" accept="image/*" name="image" required /></div>
+        <div class="mt-2 p-2"><textarea class="form-control no-resize" placeholder="Product Description" rows="5"
+                name="description" required></textarea></div>
+        <button class="d-block btn btn-danger mt-3" name="productAdd" value="True">Add</button>
+    </form>
+</div>
+
+<div class="container my-5">
+    <h4 class="text-center mb-3">My Products</h4>
+    <table class="table" class="productList">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Current Price</th>
+                <th scope="col">Rating</th>
+                <th scope="col" rowspan="4">Description</th>
+                <th scope="col">Visiblity</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in Products %}
+            <tr>
+                <td><img src="/media/{{product.Image}}" class="img-gallary" data-bs-toggle="modal"
+                        data-bs-target="#bagModal"></td>
+                <td class="pt-3">{{product.Name}}</td>
+                <td class="pt-3">{{product.price}}</td>
+                <td class="pt-3">{{product.discount}} %</td>
+                <td class="pt-3">{% calculate_current_price product %}</td> 
+                <td class="pt-3">{{product.rating}}</td>
+                <td class="pt-3">{{product.description}} </td>
+                <td class="pt-3 visiblity-button" style="cursor: pointer" data-id="{{product.id}}"
+                    data-visiblity="{{product.visiblity}}">
+                    {% if product.visiblity %}
+                    <svg style="margin-left: 1vw;" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                        fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                        <path
+                            d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                    </svg>
+                    {% else %}
+                    <svg style="margin-left: 1vw;" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                        fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                        <path
+                            d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+                        <path
+                            d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+                        <path
+                            d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+                    </svg>
+                    {% endif %}
+                </td>
+
+                <td class="pt-3"> 
+                    <a href="{% url 'ProductUpdate' product_id=product.id %}" class="text-success">
+                        <svg style="margin-left: 1vw;" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                            fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path
+                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                        </svg>
+                    </a>
+                </td>
+
+                <td class="pt-3"> 
+                    <a href="{% url 'ProductRemove' product_id=product.id %}" class="text-danger">
+                        <svg style="margin-left: 1vw;" xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                            fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                            <path
+                                d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const visibleIcon = `<svg style="margin-left: 1vw;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" /><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" /></svg>`;
+    const invisibleIcon = `<svg style="margin-left: 1vw;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16"> <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" /> <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" /> <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" /></svg>`;
+    const visiblityButton = document.querySelectorAll('.visiblity-button');
+    visiblityButton.forEach(singleVisiblityButton => {
+        singleVisiblityButton.addEventListener("click", function (event) {
+            if (event.target === this) {
+                const { id, visiblity } = event.target.dataset;
+                fetch(`seller/product/visiblity?product-id=${id}&visiblity=${visiblity}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        event.target.dataset.visiblity = res.product_visiblity === true ? "True" : "False";
+                        event.target.innerHTML = res.product_visiblity === true ? visibleIcon : invisibleIcon;
+                    });
+            }
+        })
+    })
+</script>
+
+{% comment %} image modal {% endcomment %}
+<div class="modal fade" id="bagModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <img src="" class="m-4" id="modalImage" />
+        </div>
+    </div>
+</div>
+{% endblock body %}

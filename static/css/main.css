@@ -1,0 +1,234 @@
+body {
+    overflow-x: hidden;
+}
+
+.mainnav {
+    font-family: 'Hind', sans-serif;
+    padding: 1rem 0;
+    overflow: hidden;
+}
+
+#logo {
+    cursor: pointer;
+}
+
+.nav-link {
+    font-size: initial;
+}
+
+.icon div {
+    margin: auto;
+    font-size: 1.8rem;
+    font-weight: 360;
+}
+
+.icon div::first-letter {
+    font-size: 2.3rem;
+    font-weight: 750;
+    color: white;
+    text-shadow: 3px 1px 3px rgba(19, 18, 18, 0.19);
+}
+
+.icon span {
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: #5b7a9a;
+    text-shadow: 3px 1px 3px rgba(78, 73, 73, 0.21);
+}
+
+.header {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.search-box {
+    background-color: #fff;
+    height: -webkit-fill-available;
+    width: auto;
+    padding: 3px 10px;
+}
+
+.search-box input[type="search"] {
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    padding: 8px 27px 8px 8px;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.collections div h2 {
+    font-weight: 600;
+}
+
+.card {
+    background-color: #f7f7f7;
+}
+
+.card-img {
+    padding: 1.5rem;
+}
+
+.card-text,
+.card-title {
+    font-weight: 550;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.rating-color {
+    color: #5f5e5b !important;
+}
+
+.small-ratings i {
+    color: #cecece;
+}
+
+.subscription {
+    background-color: #f7f7f7;
+}
+
+.subscription p {
+    color: #777;
+    font-weight: 500;
+}
+
+.subscription div input {
+    padding: 0.6rem 1.5rem;
+    width: 28%;
+    outline: none;
+    border: none;
+    box-shadow: 1px 3px 8px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 0.4rem;
+}
+
+.subscription div button,
+.subscription div button:hover {
+    background-color: #74d2e7;
+    padding: 0.6rem 1.5rem;
+    color: #fff;
+    font-weight: 550;
+    box-shadow: 1px 3px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.item-icon svg {
+    height: 2.5rem;
+    width: auto;
+}
+
+.order-related {
+    background-color: #080808 !important;
+}
+
+.bg-secondary-cstm {
+    background-color: #6c757d !important;
+}
+
+.order-related:hover,
+.bg-secondary-cstm:hover {
+    background-color: #74d2e7 !important;
+}
+
+.order-related desc,
+.order-related:hover {
+    color: #777;
+}
+
+.imp-links .icon div::first-letter {
+    color: #74d2e7;
+}
+
+.imp-links .icon span {
+    letter-spacing: 0.3rem;
+    color: #777;
+    font-size: 0.7rem;
+    text-shadow: 3px 1px 3px rgba(78, 73, 73, 0.21);
+}
+
+.links {
+    font-weight: 550;
+    color: #555;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.links svg {
+    height: 1.3rem;
+    width: auto;
+}
+
+.follow-txt {
+    font-weight: 600;
+    text-transform: capitalize;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.29);
+}
+
+.footer {
+    background-color: #eff1f1;
+    color: #777;
+    font-size: 1.1rem;
+}
+
+.btn-danger {
+    background-color: #ec1c24;
+}
+
+#userAccount .modalText {
+    margin-bottom: 2vh;
+}
+
+#userAccount .toggle-container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+#userAccount .toggle-switch {
+    display: inline-block;
+    width: 37px;
+    height: 18px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+#userAccount .toggle-switch::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #555;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s;
+}
+
+#userAccount input[type="checkbox"] {
+    display: none;
+}
+
+#userAccount input[type="checkbox"]:checked+.toggle-switch {
+    background-color: #66bb6a;
+}
+
+#userAccount input[type="checkbox"]:checked+.toggle-switch::before {
+    left: calc(100% - 17px);
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-inline {
+    display: inline !important;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load price %}
+{% block head %}
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Baggage Ecommerce | Order</title>
+    <style>
+        .menu {
+            font-size: larger;
+        }
+
+        .collections {
+            color: black;
+            font-family: 'Hind', sans-serif;
+            text-align: center;
+        }
+    </style>
+{% endblock head %} {% block body %}
+<!-- order section  -->
+<div class="container order my-5 px-5">
+    <div class="row">
+        <div class="col"><img src="/media/{{current_product.Image}}" style="height: 380px"></div>
+        <div class="col">
+            <p class="text-dark fs-5 fw-normal">{{current_product.Name}}</p>
+            <p class="text-secondary fs-5 fw-bold">${% calculate_current_price current_product %}  <span
+                    class="text-decoration-line-through">${{current_product.price}}</span>
+            <span class="ms-3 fw-light fs-6" style="cursor:pointer">Click for offer</span></p>
+            
+            {% if session.loggedIn %}
+                <a href="{% url 'AddCart' product_id=current_product.id %}" class="my-3 py-2 btn btn-success px-5">Cart</a>
+            {% else %}
+                <input type="email" placeholder="Enter Your Email...">
+                <button class="btn text-uppercase ms-1" onclick='alert("This is Dummy Feature")'>Check</button>
+                <a href="#" class="d-block text-dark my-3 wishlist fw-light">Login to save in wishlist</a>
+            {% endif %}
+            <p class="text-secondary my-2 fw-light">{{current_product.description}}</p>
+            <div class="fw-normal text-uppercase mt-4 mb-3">share product:</div>
+            <div class="social-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="text-dark text-decoration-none">
+                    <span class="share-button me-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" id="fb" viewBox="0 0 24 24">
+                            <path
+                                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                        </svg>
+                        Facebook
+                    </span>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" class="text-dark text-decoration-none">
+                    <span class="share-buttons me-4">
+                        <svg class="me-2" id="i-twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                            width="25" height="25">
+                            <path stroke-width="0"
+                                d="M60 16 L54 17 L58 12 L51 14 C42 4 28 15 32 24 C16 24 8 12 8 12 C8 12 2 21 12 28 L6 26 C6 32 10 36 17 38 L10 38 C14 46 21 46 21 46 C21 46 15 51 4 51 C37 67 57 37 54 21 Z" />
+                        </svg>
+                        Twitter
+                    </span>
+                </a>
+                <a href="whatsapp://send?text={{ request.build_absolute_uri }}" class="text-dark text-decoration-none">
+                    <span class="share-buttons me-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#198754" class="bi bi-whatsapp me-2" viewBox="0 0 16 16">
+                            <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                          </svg>
+                        Whatsapp
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- product details -->
+<div class="container my-5 px-5">
+    <h5 class="mb-3">LOREM IPSUM DOLOR SIT AMET</h5>
+    <p class="text-secondary fw-light mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore magna aliqua.</p>
+    <p class="text-info fw-light fst-italic mb-3">Consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore magna aliqua.</p>
+    <p class="text-secondary fw-light">Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore magna aliqua.</p>
+</div>
+
+<!-- product suggestions -->
+<div class="container mb-5 px-5">
+    <h3 class="text-uppercase mb-3">featured bags</h3>
+        <div class="row">
+            {% for item in featured_product %}
+                <div class="col">
+                    <div class="card mx-5" style="width: 18rem;">
+                        <img src="/media/{{item.Image}}" class="card-img" style="height: 330px">
+                        <div class="card-body">
+                            <a href="{% url 'Order' product_id=item.id %}" class="card-title text-dark text-decoration-none">{{item.Name}}</a>
+                            <hr>
+                            <p class="card-text">
+                                <span class="original-price me-2">${{item.price}}</span>
+                                <span class="text-danger current-price">${% calculate_current_price item %}</span>
+                            </p>
+                            <div class="small-ratings">
+                                {% autoescape off %}
+                                    {% rating_calc item.rating %}
+                                {% endautoescape %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+</div>
+
+<!-- subscription -->
+<div class="subscription py-5">
+    <p class="text-center mb-4">
+        Subscribe to the Handbags Store mailing list to receive updates on new arrivals, special offers and other
+        discount information.
+    </p>
+    <div class="text-center">
+        <input type="text" placeholder="Enter Your Email..." class="me-3">
+        <button class="btn">SUBSCRIBE</button>
+    </div>
+</div>
+
+{% endblock body %}
